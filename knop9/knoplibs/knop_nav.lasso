@@ -10,6 +10,7 @@ define knop_nav => type {
 /*
 
 CHANGE NOTES
+	2016-08-16	JS	url(-getargs) default value is set to false as it should
 	2016-06-27	JS	renderbreadcrumb works now
 	2016-06-16	JS	urlmap is now properly inherited from children
 	2016-06-16	JS	->url does not add getargs as default
@@ -38,7 +39,7 @@ CHANGE NOTES
 
 	parent knop_base
 
-	data public version = '2016-06-27'
+	data public version = '2016-08-16'
 
 	// instance variables
 	data public navitems::array = array
@@ -901,7 +902,7 @@ Returns full url for current path or specified path. Path parameters can be prov
 		-path::string = '',
 		-params::any = array,
 		-urlargs::string = '',
-		-getargs::boolean = true,
+		-getargs::boolean = false,
 		-except::any = array,
 		-topself::knop_nav = self,
 		-autoparams::boolean = false,
