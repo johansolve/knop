@@ -10,6 +10,7 @@ define knop_nav => type {
 /*
 
 CHANGE NOTES
+	2016-09-16	JS	added cast to string before split to avoid spurious errors
 	2016-08-16	JS	url(-getargs) default value is set to false as it should
 	2016-06-27	JS	renderbreadcrumb works now
 	2016-06-16	JS	urlmap is now properly inherited from children
@@ -39,7 +40,7 @@ CHANGE NOTES
 
 	parent knop_base
 
-	data public version = '2016-08-16'
+	data public version = '2016-09-16'
 
 	// instance variables
 	data public navitems::array = array
@@ -981,14 +982,14 @@ Returns the full path to the specified type of precissing file for the current n
 			#actionpath == '' ? return
 			#filenamearray = .getnav(#actionpath) -> find('filename')
 			#filenamearray  == '' ? #filenamearray = #actionpath
-			#filenamearray = #filenamearray -> split('/')
+			#filenamearray = string(#filenamearray) -> split('/')
 		else
 			#path -> size == 0 ? #path = string(.'path')
 			#path -> knop_trim('/')
 			.getnav(#path) -> size == 0 ? return
 			#filenamearray = .getnav(#path) -> find('filename')
 			#filenamearray  == '' ? #filenamearray = #path
-			#filenamearray = #filenamearray -> split('/')
+			#filenamearray = string(#filenamearray) -> split('/')
 		}
 		#type =='actcfg' ? #prefix = 'cfg' | #prefix = string(#type)
 		#type_short = #prefix
@@ -1227,7 +1228,7 @@ Path arguments = the leftover when we found a matching path, to be used for keyv
 		if(#index < 1) => {
 			return .'pathargs'
 		else
-			local('args' = .'pathargs' -> split('/'))
+			local('args' = string(.'pathargs') -> split('/'))
 			if(#args -> size >= #index) => {
 				return(#args -> get(#index))
 			}
